@@ -23,18 +23,13 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
         }
     }
 
-    init(
-        _ items: [Item], aspectRatio: CGFloat,
-        content: @escaping (Item) -> ItemView
-    ) {
+    init(_ items: [Item], aspectRatio: CGFloat, content: @escaping (Item) -> ItemView) {
         self.items = items
         self.aspectRatio = aspectRatio
         self.content = content
     }
 
-    func gridItemWidth(count: Int, size: CGSize, aspectRatio: CGFloat)
-        -> CGFloat
-    {
+    func gridItemWidth(count: Int, size: CGSize, aspectRatio: CGFloat) -> CGFloat {
         let count = CGFloat(count)
         var columnCount = 1.0
 

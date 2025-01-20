@@ -46,11 +46,26 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
 
+    private(set) var cards: [Card]
+    private var seenCardsIndices = Set<Int>()
+    private(set) var score = 0
+
     private var indexOfFaceUpCard: Int? {
         get { cards.indices.filter { cards[$0].isFaceUp }.only }
-        set { cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) } }
+        set {
+            cards.indices.forEach {
+                if cards[$0].isFaceUp && !cards[$0].isMatched && $0 != newValue {
+                    if seenCardsIndices.contains($0) {
+                        score -= 1
+                    } else {
+                        seenCardsIndices.insert($0)
+                    }
+                }
+
+                cards[$0].isFaceUp = (newValue == $0)
+            }
+        }
     }
-    private(set) var cards: [Card]
 
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
@@ -70,12 +85,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         print("chose \(card)")
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
             if !cards[chosenIndex].isFaceUp && !cards[chosenIndex].isMatched {
+
                 if let potentialMatchIndex = indexOfFaceUpCard {
-                    if cards[chosenIndex].content
-                        == cards[potentialMatchIndex].content
-                    {
+                    if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchIndex].isMatched = true
+                        score += 2
                     }
                 } else {
                     indexOfFaceUpCard = chosenIndex

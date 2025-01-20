@@ -7,9 +7,7 @@ struct EmojiMemoryGameView: View {
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
             CardView(card, withColor: viewModel.themeColor)
                 .padding(2)
-                .onTapGesture {
-                    viewModel.choose(card)
-                }
+                .onTapGesture { viewModel.choose(card) }
         }
     }
 
@@ -50,7 +48,10 @@ struct CardView: View {
                     .aspectRatio(1, contentMode: .fit)
             }
             .opacity(card.isFaceUp ? 1 : 0)
-            base.fill(color).opacity(card.isFaceUp ? 0 : 1)
+            base.fill(
+                LinearGradient(
+                    colors: [.white, color], startPoint: .topLeading, endPoint: .bottomTrailing)
+            ).opacity(card.isFaceUp ? 0 : 1)
         }
         .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
     }
