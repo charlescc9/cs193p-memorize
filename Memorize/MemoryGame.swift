@@ -16,7 +16,7 @@ struct Theme {
 let themes: [Theme] = [
     Theme(
         name: "Flags", emojis: ["🇰🇷", "🇦🇽", "🇧🇪", "🇨🇦", "🇲🇾", "🇬🇪", "🇧🇷", "🇧🇧"],
-        numberOfPairs: 3, color: "red"),
+        numberOfPairs: 2, color: "red"),
     Theme(
         name: "Cars", emojis: ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑"],
         numberOfPairs: 4, color: "orange"),

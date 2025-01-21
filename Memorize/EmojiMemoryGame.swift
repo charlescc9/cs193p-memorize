@@ -6,7 +6,7 @@ import SwiftUI
         "green": Color.green, "blue": Color.blue, "purple": Color.purple,
     ]
     private var game: MemoryGame<String>
-    var cards: [MemoryGame<String>.Card] { game.cards }
+    var cards: [Card] { game.cards }
     var score: Int { game.score }
     private(set) var themeName = "None"
     private(set) var themeColor = Color.black
@@ -20,7 +20,7 @@ import SwiftUI
 
     func shuffle() { game.shuffle() }
 
-    func choose(_ card: MemoryGame<String>.Card) { game.choose(card) }
+    func choose(_ card: Card) { game.choose(card) }
 
     private func createMemoryGame(withTheme theme: Theme) {
         themeName = theme.name
